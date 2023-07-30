@@ -9,5 +9,9 @@ target 'Chat' do
   pod 'FirebaseStorage'
   pod 'Firebase/Database'
   
+  pod 'MessageKit'
+  pod 'JGProgressHUD'
+  pod 'RealmSwift'
+  pod 'SDWebImage'
 
 end

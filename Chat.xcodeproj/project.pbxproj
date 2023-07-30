@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1762D1C62A769DD300EC1A39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1762D1C52A769DD300EC1A39 /* GoogleService-Info.plist */; };
+		1762D1C82A76B18300EC1A39 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D1C72A76B18300EC1A39 /* ChatViewController.swift */; };
+		1762D1CA2A76BCEF00EC1A39 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D1C92A76BCEF00EC1A39 /* SettingsViewController.swift */; };
 		17B408D22A762D0100F84A3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B408D12A762D0100F84A3C /* AppDelegate.swift */; };
 		17B408D42A762D0100F84A3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B408D32A762D0100F84A3C /* SceneDelegate.swift */; };
 		17B408D62A762D0100F84A3C /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B408D52A762D0100F84A3C /* ConversationsViewController.swift */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		1762D1C52A769DD300EC1A39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1762D1C72A76B18300EC1A39 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1762D1C92A76BCEF00EC1A39 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		17B408CE2A762D0100F84A3C /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B408D12A762D0100F84A3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B408D32A762D0100F84A3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				17B408D52A762D0100F84A3C /* ConversationsViewController.swift */,
+				1762D1C92A76BCEF00EC1A39 /* SettingsViewController.swift */,
+				1762D1C72A76B18300EC1A39 /* ChatViewController.swift */,
 				17B408EA2A76317D00F84A3C /* LoginViewController.swift */,
 				17B408EC2A76319000F84A3C /* RegisterViewController.swift */,
 				17B408EE2A7631BA00F84A3C /* PhotoVIewerViewController.swift */,
@@ -262,12 +268,14 @@
 			files = (
 				17B408EB2A76317D00F84A3C /* LoginViewController.swift in Sources */,
 				17B408F12A7631FF00F84A3C /* NewConversationViewController.swift in Sources */,
+				1762D1CA2A76BCEF00EC1A39 /* SettingsViewController.swift in Sources */,
 				17B408ED2A76319000F84A3C /* RegisterViewController.swift in Sources */,
 				17B408F32A763F7800F84A3C /* Extensions.swift in Sources */,
 				17B408D62A762D0100F84A3C /* ConversationsViewController.swift in Sources */,
 				17B408D22A762D0100F84A3C /* AppDelegate.swift in Sources */,
 				17B408D42A762D0100F84A3C /* SceneDelegate.swift in Sources */,
 				17B408EF2A7631BA00F84A3C /* PhotoVIewerViewController.swift in Sources */,
+				1762D1C82A76B18300EC1A39 /* ChatViewController.swift in Sources */,
 				17EC57622A768E91002BFC06 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
