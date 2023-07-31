@@ -13,7 +13,7 @@ final class StorageManager {
     
     let storage=Storage.storage().reference()
     
-    public typealias UploadPictureCompletion = (Result<String, Error>) ->Void
+    public typealias UploadPictureCompletion = (Result<URL, Error>) ->Void
     
     /// Uploads picture to firebase storage and returns completion with url string to download
     public func uploadProfilePicture(with data:Data, filename:String, completion:@escaping UploadPictureCompletion){
@@ -30,14 +30,27 @@ final class StorageManager {
                     return
                 }
                 
-                let urlString=url.absoluteString
-                print("Download URL returned:\(urlString)")
-                completion(.success(urlString))
+//                let urlString=url.absoluteString
+                print("Download URL returned:\(url)")
+                completion(.success(url))
             }
         }
     }
     public enum StorageErrors:Error{
         case failedToUpload
         case failedToGetDownloadURL
+    }
+    
+    func downloadURL(for path:String, completion:@escaping UploadPictureCompletion){
+        let reference =  Storage.storage().reference(withPath: path)
+        reference.downloadURL { url, error in
+            guard let url=url, error==nil else{
+                completion(.failure(StorageErrors.failedToGetDownloadURL))
+                return
+            }
+            
+            print("Download URL returned:\(url)")
+            completion(.success(url))
+        }
     }
 }

@@ -43,8 +43,20 @@ class ConversationsViewController: UIViewController {
     
     @objc func didTapComposeButton(){
         let vc=NewConversationViewController()
+        ///not understanding, search GPT
+        vc.completion = { [weak self] result in
+            print("\(result)")
+            self?.createNewConversation(result: result)
+        }
         let navVC=UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
+    }
+    
+    func createNewConversation(result: [String:String]) {
+        let vc=ChatViewController()
+        vc.title="Jenny Smith"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLayoutSubviews() {

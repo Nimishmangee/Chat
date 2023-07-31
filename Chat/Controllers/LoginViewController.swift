@@ -124,6 +124,9 @@ class LoginViewController: UIViewController{
                 print(e)
             }else{
                 print(" User logged in successfully")
+                let user=authResult?.user
+                //i don't know the use 
+                UserDefaults.standard.set(email, forKey: "email")
                 strongSelf.navigationController?.dismiss(animated: true)
             }
         }
