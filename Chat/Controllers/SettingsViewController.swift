@@ -56,8 +56,9 @@ class SettingsViewController: UIViewController {
         return headerView
     }
     
+    //doubt
     func downloadImage(imageView:UIImageView, url:URL){
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
             guard let data=data, error==nil else{
                 return
             }
@@ -86,6 +87,8 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         
         let actionSheet=UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let selectedCell = tableView.cellForRow(at: indexPath)
+        actionSheet.popoverPresentationController?.sourceView = selectedCell
         actionSheet.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: {[weak self] _ in
             
             guard let strongSelf = self else{
