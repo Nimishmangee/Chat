@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import MessageKit
 
 final class DatabaseManager{
     static let shared = DatabaseManager()
@@ -330,7 +331,7 @@ extension DatabaseManager{
                 let latestMessagedObject = LatestMessage(date: date, text: message, isRead: isRead);
                 
                 return Conversation(id: conversationId, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessagedObject)
-
+                
             })
             completion(.success(conversations))
         })
@@ -355,13 +356,74 @@ extension DatabaseManager{
                     print("Same problem hai, string ke naam check kar message ke liye")
                     return nil;
                 }
+                var kind:MessageKind?
+                
+                if type=="photo"{
+                    guard let imageURL=URL(string: content),
+                          let placeHolder=UIImage(systemName: "plus") else{
+                        return nil
+                    }
+                    let media = Media(url: imageURL, image: nil, placeholderImage: placeHolder, size:CGSize(width: 300, height: 300))
+                    kind = .photo(media)
+                } else{
+                    kind = .text(content)
+                }
+                
+                guard let finalKind=kind else{
+                    return nil
+                }
+                
                 let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
-                return Message(sender: sender, messageId: messageID, sentDate: date, kind: .text(content))
+                return Message(sender: sender, messageId: messageID, sentDate: date, kind: finalKind)
             }
             
             completion(.success(messages))
         })
     }
+//    public func getAllMessagesForConversations(with id:String, completion:@escaping(Result<[Message], Error>)->Void){
+//        database.child("\(id)/messages").observe(.value, with: {snapshot in
+//            guard let value=snapshot.value as? [[String:Any]] else{
+//                completion(.failure(DatabaseError.failedToFetch))
+//                return
+//            }
+//            let messages:[Message] = value.compactMap ({ dictionary in
+//                guard let name = dictionary["name"] as? String,
+//                      let isRead = dictionary["is_read"] as? Bool,
+//                      let messageID = dictionary["id"] as? String,
+//                      let content = dictionary["content"] as? String,
+//                      let senderEmail = dictionary["sender_email"] as? String,
+//                      let type = dictionary["type"] as? String,
+//                      let dateString = dictionary["date"] as? String,
+//                      let date=ChatViewController.dateFormatter.date(from: dateString) else{
+//
+//                    print("Same problem hai, string ke naam check kar message ke liye")
+//                    return nil
+//                }
+//                var kind: MessageKind?
+//                if type == "photo"{
+//                    //photo
+//                    guard let imageUrl = URL(string: content),
+//                          let placeHolder = UIImage(systemName: "plus") else{
+//                        return nil
+//                    }
+//                    let media = Media(url: imageUrl, image: nil, placeholderImage: placeHolder, size:CGSize(width: 300, height: 300))
+//                    kind = .photo(media)
+//                }
+//                else
+//                {
+//                    kind = .text(content)
+//                }
+//                guard let finalKind = kind else{
+//                    return nil
+//                }
+//                let sender = Sender(photoURL: "", senderId: senderEmail, displayName: name)
+//                return Message(sender: sender, messageId: messageID, sentDate: date, kind: .finalKind)
+//            })
+//
+//            completion(.success(messages))
+//
+//        })
+//    }
     
     ///Sends a message with target conversation and message
     public func sendMessage(to conversation:String, otherUserEmail:String, name:String, newMessage:Message, completion: @escaping(Bool)->Void){
@@ -394,7 +456,11 @@ extension DatabaseManager{
                 message=messageText
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString{
+                    message = targetUrlString
+                }
+                
                 break
             case .video(_):
                 break
