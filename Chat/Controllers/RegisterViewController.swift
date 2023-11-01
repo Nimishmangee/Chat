@@ -191,6 +191,11 @@ class RegisterViewController: UIViewController {
                 guard let strongSelf=self else{
                     return
                 }
+                
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+
+                
                 DispatchQueue.main.async {
                     strongSelf.spinner.dismiss()
                 }

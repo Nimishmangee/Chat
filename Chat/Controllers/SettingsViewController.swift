@@ -9,17 +9,7 @@ import UIKit
 import FirebaseAuth
 import SDWebImage
 
-enum ProfileViewModelType {
-    case info, logout
-}
-
-struct ProfileViewModel {
-    let viewModelType: ProfileViewModelType
-    let title: String
-    let handler: (() -> Void)?
-}
-
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     
     @IBOutlet var tableView: UITableView!
@@ -47,6 +37,10 @@ class SettingsViewController: UIViewController {
                 guard let strongSelf = self else{
                     return
                 }
+                
+                UserDefaults.standard.set(nil, forKey: "email")
+                UserDefaults.standard.setValue(nil, forKey: "name")
+                
                 do{
                     try Auth.auth().signOut()
                     

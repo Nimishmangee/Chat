@@ -14,8 +14,8 @@
             filePath = "Chat/Controllers/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "ChatViewController"
             landmarkType = "21">
          </BreakpointContent>
