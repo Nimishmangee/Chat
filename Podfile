@@ -8,6 +8,8 @@ target 'Chat' do
   pod 'FirebaseFirestore'  
   pod 'FirebaseStorage'
   pod 'Firebase/Database'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   
   pod 'MessageKit'
   pod 'JGProgressHUD'

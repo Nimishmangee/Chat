@@ -42,7 +42,7 @@ class RegisterViewController: UIViewController {
         field.placeholder="First Name"
         field.leftView=UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field;
     }()
     
@@ -57,7 +57,7 @@ class RegisterViewController: UIViewController {
         field.placeholder="Last Name"
         field.leftView=UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field;
     }()
     
@@ -72,7 +72,7 @@ class RegisterViewController: UIViewController {
         field.placeholder="Email"
         field.leftView=UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field;
     }()
     
@@ -87,7 +87,7 @@ class RegisterViewController: UIViewController {
         field.placeholder="Password"
         field.leftView=UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         field.isSecureTextEntry=true
         return field;
     }()
@@ -108,7 +108,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         
         title="Log In";
-        view.backgroundColor =  .white
+        view.backgroundColor =  .systemBackground
         
         navigationItem.rightBarButtonItem=UIBarButtonItem(title: "Register",
                                                           style: .done,
@@ -171,39 +171,56 @@ class RegisterViewController: UIViewController {
         spinner.show(in: view)
         
         //Firebase Log in
-        Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, error in
-            guard let strongSelf=self else{
+        
+        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
+            guard let strongSelf = self else {
                 return
             }
+            
             DispatchQueue.main.async {
                 strongSelf.spinner.dismiss()
             }
-            if let e=error{
-                print(e);
-            }else{
-                let chatUser=ChatAppUser(firstName: firstName,
-                                         lastName: lastName,
-                                         emailAddress: email)
-                
-                DatabaseManager.shared.insertUser(with: chatUser) { success in
-                    if success {
-                        //upload image
-                        guard let image = strongSelf.imageView.image, let data=image.pngData() else{
-                            return
-                        }
-                        let filename=chatUser.profilePictureFileName
-                        StorageManager.shared.uploadProfilePicture(with: data, filename: filename) {[weak self] result in
-                            switch result{
-                            case.success(let downloadURL):
-                                UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
-                                print(downloadURL)
-                            case .failure(let error):
-                                print("Stoarage Manager error: \(error)")
+            
+            guard !exists else {
+                // user already exists
+                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
+                return
+            }
+            
+            Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, error in
+                guard let strongSelf=self else{
+                    return
+                }
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+                }
+                if let e=error{
+                    print(e);
+                }else{
+                    let chatUser=ChatAppUser(firstName: firstName,
+                                             lastName: lastName,
+                                             emailAddress: email)
+                    
+                    DatabaseManager.shared.insertUser(with: chatUser) { success in
+                        if success {
+                            //upload image
+                            guard let image = strongSelf.imageView.image, let data=image.pngData() else{
+                                return
+                            }
+                            let filename=chatUser.profilePictureFileName
+                            StorageManager.shared.uploadProfilePicture(with: data, filename: filename) {[weak self] result in
+                                switch result{
+                                case.success(let downloadURL):
+                                    UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
+                                    print(downloadURL)
+                                case .failure(let error):
+                                    print("Stoarage Manager error: \(error)")
+                                }
                             }
                         }
                     }
+                    strongSelf.navigationController?.dismiss(animated: true);
                 }
-                strongSelf.navigationController?.dismiss(animated: true);
             }
         }
     }

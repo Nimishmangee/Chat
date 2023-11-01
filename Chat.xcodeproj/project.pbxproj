@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		170E9D812A777C6300A1AAF4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E9D802A777C6300A1AAF4 /* StorageManager.swift */; };
+		1732763D2AEED6250011A07D /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732763C2AEED6250011A07D /* NewConversationCell.swift */; };
+		1732763F2AF125930011A07D /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732763E2AF125930011A07D /* LocationPickerViewController.swift */; };
 		176221652A7A94A900FEB546 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176221642A7A94A900FEB546 /* ConversationTableViewCell.swift */; };
 		1762D1C62A769DD300EC1A39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1762D1C52A769DD300EC1A39 /* GoogleService-Info.plist */; };
 		1762D1C82A76B18300EC1A39 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D1C72A76B18300EC1A39 /* ChatViewController.swift */; };
@@ -29,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		170E9D802A777C6300A1AAF4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		1732763C2AEED6250011A07D /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
+		1732763E2AF125930011A07D /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		176221642A7A94A900FEB546 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		1762D1C52A769DD300EC1A39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1762D1C72A76B18300EC1A39 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 				17B408EC2A76319000F84A3C /* RegisterViewController.swift */,
 				17B408EE2A7631BA00F84A3C /* PhotoVIewerViewController.swift */,
 				17B408F02A7631FF00F84A3C /* NewConversationViewController.swift */,
+				1732763E2AF125930011A07D /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				17B408D72A762D0100F84A3C /* Main.storyboard */,
 				17B408DC2A762D0300F84A3C /* LaunchScreen.storyboard */,
 				176221642A7A94A900FEB546 /* ConversationTableViewCell.swift */,
+				1732763C2AEED6250011A07D /* NewConversationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 				17B408CB2A762D0100F84A3C /* Frameworks */,
 				17B408CC2A762D0100F84A3C /* Resources */,
 				5F84A043F2D8E501D8492A74 /* [CP] Embed Pods Frameworks */,
+				173276402AF1FB220011A07D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -226,6 +233,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		173276402AF1FB220011A07D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#
+";
+		};
 		21825E0E8539B3B014E1B155 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -277,6 +302,7 @@
 				1762D1CA2A76BCEF00EC1A39 /* SettingsViewController.swift in Sources */,
 				170E9D812A777C6300A1AAF4 /* StorageManager.swift in Sources */,
 				17B408ED2A76319000F84A3C /* RegisterViewController.swift in Sources */,
+				1732763D2AEED6250011A07D /* NewConversationCell.swift in Sources */,
 				17B408F32A763F7800F84A3C /* Extensions.swift in Sources */,
 				17B408D62A762D0100F84A3C /* ConversationsViewController.swift in Sources */,
 				17B408D22A762D0100F84A3C /* AppDelegate.swift in Sources */,
@@ -284,6 +310,7 @@
 				176221652A7A94A900FEB546 /* ConversationTableViewCell.swift in Sources */,
 				17B408EF2A7631BA00F84A3C /* PhotoVIewerViewController.swift in Sources */,
 				1762D1C82A76B18300EC1A39 /* ChatViewController.swift in Sources */,
+				1732763F2AF125930011A07D /* LocationPickerViewController.swift in Sources */,
 				17EC57622A768E91002BFC06 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +463,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Chat/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pleaae allow access to send audio and video messages";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo for profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -472,6 +500,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Chat/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pleaae allow access to send audio and video messages";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo for profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

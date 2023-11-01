@@ -10,10 +10,10 @@ import JGProgressHUD
 
 class NewConversationViewController: UIViewController {
     
-    public var completion: (([String:String]) ->(Void))?
+    public var completion: ((SearchResult) ->(Void))?
     
     private var users=[[String:String]]()
-    private var results=[[String:String]]()
+    private var results=[SearchResult]()
     private var hasFetched=false
     
     private let spinner = JGProgressHUD(style: .dark)
@@ -27,7 +27,7 @@ class NewConversationViewController: UIViewController {
     let tableView:UITableView = {
         let table=UITableView()
         table.isHidden=true
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(NewConversationCell.self, forCellReuseIdentifier: NewConversationCell.identifier)
         return table
     }()
     
@@ -50,7 +50,7 @@ class NewConversationViewController: UIViewController {
         tableView.dataSource=self
         
         searchBar.delegate=self
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.topItem?.titleView=searchBar
         navigationItem.rightBarButtonItem=UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissSelf))
         
@@ -75,9 +75,12 @@ extension NewConversationViewController:UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell=tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text=results[indexPath.row]["name"]
-        return cell!
+        let model=results[indexPath.row]
+        let cell=tableView.dequeueReusableCell(withIdentifier: NewConversationCell.identifier, for: indexPath) as! NewConversationCell
+        
+        cell.configure(with: model)
+//        cell?.textLabel?.text=results[indexPath.row].name
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -88,6 +91,10 @@ extension NewConversationViewController:UITableViewDataSource, UITableViewDelega
         dismiss(animated: true) { [weak self] in
             self?.completion?(targetUserData)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
 }
 
@@ -123,21 +130,33 @@ extension NewConversationViewController:UISearchBarDelegate {
     }
     
     func filterUsers(with term:String){
-        guard hasFetched else{
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String, hasFetched else{
             return
         }
+        
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
         
         self.spinner.dismiss()
         
         //having some confusion ask GPT
-        let results:[[String:String]] = self.users.filter({
+        let results:[SearchResult] = self.users.filter({
+            guard let email = $0["email"] , email != safeEmail else{
+                return false
+            }
+            
             guard let name=$0["name"]?.lowercased() else{
                 return false
             }
             return name.hasPrefix(term.lowercased())
+        }).compactMap({
+            
+            guard let email = $0["email"], let name=$0["name"] else{
+                return nil
+            }
+            
+            return SearchResult(name: name, email: email)
         })
         self.results=results
-//        print(users[0]["email"]!)
         updateUI()
     }
     
@@ -152,4 +171,9 @@ extension NewConversationViewController:UISearchBarDelegate {
             self.tableView.reloadData()
         }
     }
+}
+
+struct SearchResult {
+    let name: String
+    let email: String
 }
