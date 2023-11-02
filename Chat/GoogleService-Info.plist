@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>761402185106-l941jf0h88qnr3u33d9dsqkdlo5gp00g.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.761402185106-l941jf0h88qnr3u33d9dsqkdlo5gp00g</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC0wv_nf-z_xcMzfKZoSVnz_PMF4dlfmTg</string>
+	<string>AIzaSyCRfFj2cHn3Sk5zBdLFJOSh_IiBgfB7mCU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>761402185106</string>
+	<string>722068424539</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>co.mangee.Chat</string>
+	<string>co.mangee.Chat2</string>
 	<key>PROJECT_ID</key>
-	<string>chat-2be46</string>
+	<string>chat2-ac032</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chat-2be46.appspot.com</string>
+	<string>chat2-ac032.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:761402185106:ios:762e80c083fab17fcf9d4b</string>
+	<string>1:722068424539:ios:286e6406456fd050f3bc7e</string>
 </dict>
 </plist>

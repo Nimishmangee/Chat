@@ -186,7 +186,7 @@ class ChatViewController: MessagesViewController {
             let picker = UIImagePickerController()
             picker.sourceType = .camera
             picker.delegate = self
-            picker.mediaTypes = ["public movie"]
+            picker.mediaTypes = ["public.movie"]
             picker.videoQuality = .typeMedium
             picker.allowsEditing = true
             self?.present(picker, animated: true)
@@ -196,7 +196,7 @@ class ChatViewController: MessagesViewController {
             picker.sourceType = .photoLibrary
             picker.delegate = self
             picker.allowsEditing = true
-            picker.mediaTypes = ["public movie"]
+            picker.mediaTypes = ["public.movie"]
             picker.videoQuality = .typeMedium
             self?.present(picker, animated: true)
         }))
@@ -270,11 +270,12 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                 }
             })
         } else if let videoUrl=info[.mediaURL] as? URL{
+            print("wtf\(videoUrl)")
             //video bhej raha hai tu
-            let fileName="photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
             
             //upload video
-            StorageManager.shared.uploadMessageVideo(with: videoUrl, filename: fileName, completion: {[weak self] result in
+            StorageManager.shared.uploadMessageVideo(with: videoUrl, fileName: fileName, completion: { [weak self] result in
                 guard let strongSelf = self else{
                     return
                 }
@@ -313,7 +314,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                     
                     
                 case .failure(let error):
-                    print("message photo upload error: \(error)")
+                    print("message video upload error: \(error)")
                     
                 }
             })

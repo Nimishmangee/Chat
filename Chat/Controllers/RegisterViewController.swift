@@ -188,6 +188,8 @@ class RegisterViewController: UIViewController {
             }
             
             Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, error in
+                
+//                print("yaha tak to pahucha")
                 guard let strongSelf=self else{
                     return
                 }
@@ -200,7 +202,7 @@ class RegisterViewController: UIViewController {
                     strongSelf.spinner.dismiss()
                 }
                 if let e=error{
-                    print(e);
+                    print("Why\(e)");
                 }else{
                     let chatUser=ChatAppUser(firstName: firstName,
                                              lastName: lastName,
